@@ -23,6 +23,9 @@ print ('reding the pc file')
 with open (pcfile) as inf:
     for line in inf:
         spl =line.rstrip().split ()
+        npc_used=len(spl)-2
+        if npc_used < npc:
+            print (f'{npc}s are not available in the pc_file, only {npc_used} will be used')
         tw = "\t".join (spl)
         pc [spl [0]] = spl [2:npc+2]
 
@@ -67,7 +70,7 @@ def prepare_files () :
                     mypos.write (f"{to_out}\n")
             mypos.close ()
             positions = ":".join (list (map (str, pos)  ))
-            Rcommand= " ".join ( [   "Rscript  asso.R", str(startpos), str(endpos), str(myhap), str(myfreq), positions,outfile, tmp   ])
+            Rcommand= " ".join ( [   "Rscript  asso.R", str(startpos), str(endpos), str(myhap), str(myfreq), positions,outfile, tmp, str(npc_used)   ])
             os.system (Rcommand)
 
 

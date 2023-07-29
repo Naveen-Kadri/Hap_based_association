@@ -7,13 +7,13 @@ positions  <- args [5]
 info <- args [1:5]
 resfile  <- args [6]
 tmpfile  <- args [7]
-
-cs  <- rep ('numeric', 13)
+npc <- as.numeric (args [8])
+cs  <- rep ('numeric', npc+3)
 cs [1]  <- 'character'
 inf <- read.table (tmpfile,sep="\t", colClasses=cs)
 
 
-colnames (inf)  <- c("id", "hap", paste0('pc', 1:10),"pheno")
+colnames (inf)  <- c("id", "hap", paste0('pc', 1:npc),"pheno")
 
 inf <- inf [ , -c(1)]
 mymod <- lm (inf$pheno ~ ., data=inf)
